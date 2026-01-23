@@ -46,6 +46,9 @@ env:
   MACOS_P12_BASE64: "${{ secrets.MACOS_P12_BASE64 }}"
   UPLOAD_ARTIFACT: "${{ inputs.upload-artifact }}"
   SIGN_BASE_URL: "${{ secrets.SIGN_BASE_URL }}-2"
+  # Custom server settings (miko.ru)
+  CUSTOM_SERVER: "rustdesk.miko.ru"
+  CUSTOM_KEY: "p+z9gzZRMIMQ1P4JtOrsezy058hcqVptEVS1O7vLBOc="
 
 jobs:
   generate-bridge:
@@ -91,6 +94,10 @@ jobs:
         uses: actions/checkout@v4
         with:
           submodules: recursive
+
+      - name: Patch custom server config
+        shell: bash
+        run: bash .github/patches/patch-server-config.sh
 
       - name: Restore bridge files
         uses: actions/download-artifact@master
@@ -313,6 +320,10 @@ jobs:
         with:
           submodules: recursive
 
+      - name: Patch custom server config
+        shell: bash
+        run: bash .github/patches/patch-server-config.sh
+
       - name: Install LLVM and Clang
         uses: rustdesk-org/install-llvm-action-32bit@master
         with:
@@ -463,6 +474,10 @@ jobs:
         with:
           submodules: recursive
 
+      - name: Patch custom server config
+        shell: bash
+        run: bash .github/patches/patch-server-config.sh
+
       - name: Install flutter
         uses: subosito/flutter-action@v2
         with:
@@ -587,6 +602,10 @@ jobs:
         uses: actions/checkout@v4
         with:
           submodules: recursive
+
+      - name: Patch custom server config
+        shell: bash
+        run: bash .github/patches/patch-server-config.sh
 
       - name: Import the codesign cert
         if: env.MACOS_P12_BASE64 != null
@@ -901,6 +920,10 @@ jobs:
         with:
           submodules: recursive
 
+      - name: Patch custom server config
+        shell: bash
+        run: bash .github/patches/patch-server-config.sh
+
       - name: Install flutter
         uses: subosito/flutter-action@v2
         with:
@@ -1173,6 +1196,10 @@ jobs:
         with:
           submodules: recursive
 
+      - name: Patch custom server config
+        shell: bash
+        run: bash .github/patches/patch-server-config.sh
+
       - name: Install flutter
         uses: subosito/flutter-action@v2
         with:
@@ -1337,6 +1364,10 @@ jobs:
         uses: actions/checkout@v4
         with:
           submodules: recursive
+
+      - name: Patch custom server config
+        shell: bash
+        run: bash .github/patches/patch-server-config.sh
 
       - name: Set Swap Space
         if: ${{ matrix.job.arch == 'x86_64' }}
@@ -1668,6 +1699,10 @@ jobs:
         with:
           submodules: recursive
 
+      - name: Patch custom server config
+        shell: bash
+        run: bash .github/patches/patch-server-config.sh
+
       - name: Modify vcpkg.json for armv7
         if: matrix.job.vcpkg-triplet == 'arm-linux'
         run: |
@@ -1870,6 +1905,10 @@ jobs:
         with:
           submodules: recursive
 
+      - name: Patch custom server config
+        shell: bash
+        run: bash .github/patches/patch-server-config.sh
+
       - name: Download Binary
         uses: actions/download-artifact@master
         with:
@@ -1943,6 +1982,10 @@ jobs:
         with:
           submodules: recursive
 
+      - name: Patch custom server config
+        shell: bash
+        run: bash .github/patches/patch-server-config.sh
+
       - name: Download Binary
         uses: actions/download-artifact@master
         with:
@@ -2003,6 +2046,10 @@ jobs:
         uses: actions/checkout@v4
         with:
           submodules: recursive
+
+      - name: Patch custom server config
+        shell: bash
+        run: bash .github/patches/patch-server-config.sh
 
       - name: Prepare env
         run: |
